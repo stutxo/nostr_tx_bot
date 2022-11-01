@@ -12,14 +12,15 @@ const key = getPublicKey(privatekey);
 
 //connects to local relay for now
 pool.addRelay("ws://127.0.0.1:7000", { read: true, write: true });
-const time = Date.now() / 1000
-//filters out all previously stored events on the relay at start up 
-//and only parses private messages sent to tx_bot
- const ev = pool.sub({cb:(event) => {
-        
-        event.created_at > time ? getTxhex(event) : {};
-      
-}, filter: [{ "#p": [key] }, { authors: [key] }]});
+const time = Date.now() / 1000;
+//filters out all previously stored events on the relay at start up
+//only parses private messages sent to tx_bot
+const ev = pool.sub({
+  cb: (event) => {
+    event.created_at > time ? getTxhex(event) : {};
+  },
+  filter: [{ "#p": [key] }, { authors: [key] }],
+});
 
 function getTxhex(event) {
   try {
