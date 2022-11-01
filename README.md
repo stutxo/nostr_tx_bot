@@ -10,7 +10,7 @@ current capability - connects to a nostr relay, waits for a private direct messa
 
 Once the app is at a working stage i will create an API for monitoring and other purposes and host a proof of concept in AWS
 
-
+I will create a folder in this directory with some info on the resources i have used and what i have learned during this mini project
 
 
 
