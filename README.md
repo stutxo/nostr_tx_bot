@@ -35,7 +35,7 @@ start the bot and await messages
 node txbot.mjs
 ```
 
-you can test the bot by connecting to your local relay via another client, such as https://astral.ninja and sending a DM to the public key that is generated. For now the public key is hardcoded as the following: 
+you can test the bot by connecting to your local relay via another client, such as https://astral.ninja (works better with chrome) and sending a DM to the public key that is generated. For now the public key is hardcoded as the following: 
 
 ```sh
 tx_bot public key: bb9b8dd498ffe5b1672992bd3d03d5020cd08517e7f8165643a7d063abf5998e
