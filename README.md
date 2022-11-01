@@ -13,6 +13,28 @@ Once the app is at a working stage i will create an API for monitoring and other
 I will create a folder in this directory with some info on the resources i have used and what i have learned during this mini project
 
 
+## Usage
+
+Install and setup a local relay on port 7000 following the instructions here - [nostr-rs-relay](https://github.com/scsibug/nostr-rs-relay#quick-start):
+
+
+clone this project to your local machine
+
+```sh
+git clone https://github.com/stum0/nostr_txid_bot.git
+```
+install the required dependencies
+
+```sh
+nmp install
+```
+
+start the bot and await messages
+
+```sh
+node txbot.mjs
+```
+
 
 
 
