@@ -35,6 +35,10 @@ start the bot and await messages
 node txbot.mjs
 ```
 
+you can test the bot by connecting to your local relay via another client, such as https://astral.ninja
+
+make sure to remove all the other mainnet relays 
+
 
 
 
