@@ -20,7 +20,7 @@ function getTxid(event) {
   const pubkey = event.pubkey
   console.log(pubkey)
   const message = decrypt(privatekey, pubkey, event.content)
-  //TODO# check message for !txid message event and broadcast message to mempool api 
+  //TODO check message for !txid message event and broadcast message to mempool api 
   console.log(message)
   } 
   //catches error messages without panicking, need to fix errors/format
