@@ -1,6 +1,6 @@
 # nostr_tx_bot
 
-## nostr bot that relays a bitcoin transactions to the mempool. 
+## nostr bot that relays bitcoin transactions to the mempool. 
 
 WORK IN PRORESS 
 
