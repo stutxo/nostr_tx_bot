@@ -1,0 +1,40 @@
+import express from "express";
+import { start_bot } from "./services/bot.js";
+import promclient from "express-prom-bundle";
+
+const metrics = promclient({
+  includeMethod: true,
+  includePath: true,
+  includeStatusCode: true,
+  includeUp: true,
+  customLabels: {
+    project_name: "mempool_bot",
+    project_type: "nostr bot",
+  },
+  promClient: {
+    collectDefaultMetrics: {},
+  },
+});
+
+const router = express.Router({});
+router.get("/", async (_req, res) => {
+  const healthcheck = {
+    uptime: process.uptime(),
+    message: "OK",
+    timestamp: Date.now(),
+  };
+  try {
+    res.send(healthcheck);
+  } catch (error) {
+    healthcheck.message = error;
+    res.status(503).send();
+  }
+});
+
+const app = express();
+const PORT = process.env.PORT || 4111;
+app.listen(PORT, console.log("api server started on port: " + PORT));
+app.use("/healthcheck", router);
+app.use("/metrics", metrics);
+
+start_bot();
