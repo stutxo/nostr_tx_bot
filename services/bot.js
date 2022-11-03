@@ -7,9 +7,7 @@ import mempoolJS from "@mempool/mempool.js";
 export function start_bot() {
   const pool = relayPool();
 
-  //temp private key for testing, will add local file or something similar
-  const privatekey =
-    "a2de924a9e5a7d6cfade35ee5954de7a2bcbc82adc3e0c22e35576b913d21ac1";
+  const privatekey = process.env.PRIVATE_KEY;
 
   pool.setPrivateKey(privatekey);
   const key = getPublicKey(privatekey);

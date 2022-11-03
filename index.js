@@ -2,6 +2,7 @@ import express from "express";
 import { start_bot } from "./services/bot.js";
 import promclient from "express-prom-bundle";
 
+//endpoint for prometheus
 const metrics = promclient({
   includeMethod: true,
   includePath: true,
@@ -16,6 +17,7 @@ const metrics = promclient({
   },
 });
 
+//endpoint for health check
 const router = express.Router({});
 router.get("/", async (_req, res) => {
   const healthcheck = {
@@ -37,4 +39,6 @@ app.listen(PORT, console.log("api server started on port: " + PORT));
 app.use("/healthcheck", router);
 app.use("/metrics", metrics);
 
+//start mempool bot
 start_bot();
+
