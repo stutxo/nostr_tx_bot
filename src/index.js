@@ -1,5 +1,5 @@
 import express from "express";
-import { start_bot } from "./src/bot.mjs";
+import { start_bot } from "./bot.js";
 import promclient from "express-prom-bundle";
 
 

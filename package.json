@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.mjs",
+    "start": "node src/index.js",
     "test": "mocha"
   },
   "author": "",
@@ -17,6 +17,7 @@
     "nostr-tools": "^0.24.1",
     "prom-client": "^14.1.0"
   },
+  "type": "module",
   "devDependencies": {
     "eslint": "^8.26.0",
     "mocha": "^10.1.0"
