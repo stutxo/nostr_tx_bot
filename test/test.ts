@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 //mock test for deployment testing
-import start_bot  from "../src/bot.js";
+import { start_bot }  from "../src/bot.js";
 import { equal } from 'assert';
 
 
