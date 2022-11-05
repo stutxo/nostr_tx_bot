@@ -11,9 +11,8 @@ FROM node:alpine AS final
 WORKDIR /app
 COPY --from=builder ./app/dist ./dist
 COPY ["package.json", "package-lock.json", "./"],
-RUN npm install --production
-ENTRYPOINT npm start
 
 RUN --mount=type=secret,id=NOSTR_PRIVATE_KEY \
-   export NOSTR_PRIVATE_KEY=$(cat /run/secrets/NOSTR_PRIVATE_KEY)
-
+   export NOSTR_PRIVATE_KEY=$(cat /run/secrets/NOSTR_PRIVATE_KEY) \
+   npm install --production
+   
