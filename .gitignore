@@ -1,4 +1,4 @@
 node_modules
 dist
 .eslintrc.js
-package-lock.json
+.package-lock.json
