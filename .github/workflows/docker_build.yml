@@ -14,6 +14,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+     
 
     steps:
       - name: Checkout repository
@@ -39,3 +40,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          secrets: "NOSTR_PRIVATE_KEY=${{ secrets.NOSTR_PRIVATE_KEY }}"
