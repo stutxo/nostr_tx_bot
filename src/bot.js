@@ -4,7 +4,7 @@ import { decrypt, encrypt } from "nostr-tools/nip04.js";
 import axios from "axios";
 //import mempoolJS from "@mempool/mempool.js";
 
-export function start_bot() {
+function start_bot() {
   const pool = relayPool();
 
   const privatekey = process.env.PRIVATE_KEY;
@@ -132,3 +132,5 @@ export function start_bot() {
     }
   }
 }
+
+export default start_bot

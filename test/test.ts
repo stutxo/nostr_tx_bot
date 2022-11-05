@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 //mock test for deployment testing
+import start_bot  from "../src/bot.js";
 import { equal } from 'assert';
+
 
 describe('Array', function() {
   describe('#indexOf()', function() {
@@ -9,3 +11,4 @@ describe('Array', function() {
     });
   });
 });
+

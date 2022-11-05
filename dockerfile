@@ -1,11 +1,11 @@
 FROM node:alpine AS builder
 WORKDIR /app
-COPY ["package.json", "package-lock.json", "tsconfig.json", "./"],
+COPY ["package.json", "package-lock.json", "tsconfig.json", "jest.config.ts", "./"],
 COPY ["src/", "./src/"]
 COPY ["test/", "./test/"]
 RUN npm install \ 
-&& npm run build \
-&& npm run test
+&& npm run test \
+&& npm run build 
 
 FROM node:alpine AS final
 WORKDIR /app
