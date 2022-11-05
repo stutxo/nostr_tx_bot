@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import { start_bot } from "./bot.js";
 import promclient from "express-prom-bundle";
 
@@ -36,7 +36,7 @@ router.get("/", async (_req, res) => {
 
 const app = express();
 const PORT = process.env.PORT || 4111;
-app.listen(PORT, console.log("api server started on port: " + PORT));
+app.listen(console.log("api server started on port: " + PORT));
 app.use("/health", router);
 app.use("/metrics", metrics);
 

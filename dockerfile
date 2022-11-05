@@ -1,13 +1,15 @@
-FROM node as builder
-WORKDIR /root/
-COPY ["package.json", "package-lock.json", "./"]
-RUN ["npm", "install"]
+FROM node:alpine AS builder
+WORKDIR /app
+COPY ["package.json", "package-lock.json", "tsconfig.json", "./"],
 COPY ["src/", "./src/"]
 COPY ["test/", "./test/"]
-RUN  npm run test 
-RUN ["/bin/bash", "-c", "find . ! -name test ! -name node_modules -maxdepth 1 -mindepth 1 -exec rm -rf {} \\;"]
+RUN npm install \ 
+&& npm run build \
+&& npm run test
 
+FROM node:alpine AS final
+WORKDIR /app
+COPY --from=builder ./app/dist ./dist
+COPY ["package.json", "package-lock.json", "./"],
+RUN npm install --production
 
-FROM node:alpine
-WORKDIR /root/
-COPY --from=builder /root/ ./

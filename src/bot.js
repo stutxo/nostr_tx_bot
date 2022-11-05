@@ -2,7 +2,7 @@ import { relayPool } from "nostr-tools";
 import { getPublicKey } from "nostr-tools";
 import { decrypt, encrypt } from "nostr-tools/nip04.js";
 import axios from "axios";
-import mempoolJS from "@mempool/mempool.js";
+//import mempoolJS from "@mempool/mempool.js";
 
 export function start_bot() {
   const pool = relayPool();
@@ -10,7 +10,7 @@ export function start_bot() {
   const privatekey = process.env.PRIVATE_KEY;
 
   pool.setPrivateKey(privatekey);
-  const key = getPublicKey(privatekey);
+  const mykey = getPublicKey(privatekey);
 
   //connects to relays
   //pool.addRelay("ws://127.0.0.1:7000", { read: true, write: true });
@@ -26,7 +26,7 @@ export function start_bot() {
   };
 
   pool.publish({
-    pubkey: key,
+    pubkey: mykey,
     created_at: Math.round(Date.now() / 1000),
     kind: 0,
     tags: [[""]],
@@ -35,12 +35,13 @@ export function start_bot() {
 
   const time = Math.round(Date.now() / 1000);
   //filters out all previously stored events on the relay at start up
+
   //only parses private messages sent to tx_bot
   pool.sub({
     cb: (event) => {
       event.created_at > time ? getTxhex(event) : {};
     },
-    filter: [{ "#p": [key] }, { authors: [key] }],
+    filter: [{ "#p": [mykey] }, { authors: [mykey] }],
   });
 
   function getTxhex(event) {
@@ -67,7 +68,7 @@ export function start_bot() {
               //Responds with TXID if successful
               console.log(JSON.stringify(response.data));
               pool.publish({
-                pubkey: key,
+                pubkey: mykey,
                 created_at: Math.round(Date.now() / 1000),
                 kind: 4,
                 tags: [["p", pubkey]],
@@ -79,7 +80,7 @@ export function start_bot() {
                 // Request made and server responded
                 console.log(JSON.stringify(error.response.data));
                 pool.publish({
-                  pubkey: key,
+                  pubkey: mykey,
                   created_at: Math.round(Date.now() / 1000),
                   kind: 4,
                   tags: [["p", pubkey]],
@@ -96,26 +97,26 @@ export function start_bot() {
 
           break;
         }
-        case "!txinfo": {
-          const {
-            bitcoin: { transactions },
-          } = mempoolJS({
-            hostname: "mempool.space",
-          });
+        // case "!txinfo": {
+        //   const {
+        //     bitcoin: { transactions },
+        //   } = mempoolJS({
+        //     hostname: "mempool.space",
+        //   });
 
-          const txid = request;
-          const txStatus = transactions.getTxStatus({ txid });
-          console.log(txStatus);
+        //   const txid = request;
+        //   const txStatus = transactions.getTxStatus({ txid });
+        //   console.log(txStatus);
 
-          break;
-        }
+        //   break;
+        // }
         default: {
           const command_reply =
             "!txsend: Broadcast txhex\n!txinfo: retrieve info for txid\n!help: how to use";
 
           message.includes("!commands")
             ? pool.publish({
-                pubkey: key,
+                pubkey: mykey,
                 created_at: Math.round(Date.now() / 1000),
                 kind: 4,
                 tags: [["p", pubkey]],
