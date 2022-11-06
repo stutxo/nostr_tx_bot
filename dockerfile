@@ -1,6 +1,6 @@
 FROM node:alpine AS builder
 WORKDIR /app
-COPY ["package.json", "package-lock.json", "tsconfig.json", "jest.config.ts", "./"],
+COPY ["package.json", "yarn.lock", "tsconfig.json", "./"],
 COPY ["src/", "./src/"]
 RUN yarn install \
 && yarn run build 
@@ -8,7 +8,7 @@ RUN yarn install \
 FROM node:alpine AS final
 WORKDIR /app
 COPY --from=builder ./app/dist ./dist
-COPY ["package.json", "package-lock.json", "./"],
+COPY ["package.json", "yarn.lock", "./"],
 
 RUN  yarn install --production 
 
