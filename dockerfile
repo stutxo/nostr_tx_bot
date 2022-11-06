@@ -18,4 +18,4 @@ RUN --mount=type=secret,id=NOSTR_PRIVATE_KEY
 
 ENV NOSTR_PRIVATE_KEY=$(/run/secrets/NOSTR_PRIVATE_KEY)
 
-ENTRYPOINT [ "npm start" ]
+ENTRYPOINT npm start
