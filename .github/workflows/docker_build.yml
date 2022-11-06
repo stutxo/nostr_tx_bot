@@ -11,9 +11,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-
   test:
-    name: jobs.<tests>.name
     runs-on: ubuntu-latest
 
     strategy:
@@ -31,7 +29,7 @@ jobs:
     - run: yarn test
 
   build-and-push-image:
-    needs: tests
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: read
