@@ -4,7 +4,8 @@
       "allowJs": true,
       "target": "es6",
       "moduleResolution": "Node",
-      "esModuleInterop": true,
+      "esModuleInterop": true,  
     },
-    "include": ["./src/*", "./test/*"]
+    "include": ["./src/*"]
   }
+

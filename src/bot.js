@@ -4,7 +4,12 @@ import { decrypt, encrypt } from "nostr-tools/nip04.js";
 import axios from "axios";
 //import mempoolJS from "@mempool/mempool.js";
 
-export function start_bot() {
+export async function start_bot() {
+  // let { relayPool } = await import('nostr-tools');
+  // let { getPublicKey } = await import('nostr-tools');
+  // let { decrypt, encrypt } = await import('nostr-tools/nip04.js');
+  // let { axios } = await import('');
+ 
   const pool = relayPool();
 
   const privatekey = process.env.NOSTR_PRIVATE_KEY;
