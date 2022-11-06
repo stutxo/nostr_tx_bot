@@ -43,4 +43,4 @@ jobs:
           build-args: |
             NOSTR_PRIVATE_KEY
         env:
-          TEST_ARG: ${{secrets.NOSTR_PRIVATE_KEY}}
+          NOSTR_PRIVATE_KEY: ${{secrets.NOSTR_PRIVATE_KEY}}
