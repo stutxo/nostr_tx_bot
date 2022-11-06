@@ -14,7 +14,7 @@ COPY ["package.json", "package-lock.json", "./"],
 
 #RUN  npm install --production
 
-RUN --mount=type=secret,id=NOSTR_PRIVATE_KEY && npm install --production && 
+RUN --mount=type=secret,id=NOSTR_PRIVATE_KEY && npm install --production
 
 ENV NOSTR_PRIVATE_KEY=$(/run/secrets/NOSTR_PRIVATE_KEY)
 
