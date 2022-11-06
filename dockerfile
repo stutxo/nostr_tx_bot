@@ -14,5 +14,8 @@ COPY ["package.json", "package-lock.json", "./"],
 
 RUN  npm install --production
 
-RUN --mount=type=secret,id=NOSTR_PRIVATE_KEY \
-   export NOSTR_PRIVATE_KEY=$(cat /run/secrets/NOSTR_PRIVATE_KEY)
+RUN --mount=type=secret,id=NOSTR_PRIVATE_KEY
+
+ENV NOSTR_PRIVATE_KEY=$(/run/secrets/NOSTR_PRIVATE_KEY)
+
+ENTRYPOINT [ "npm start" ]
