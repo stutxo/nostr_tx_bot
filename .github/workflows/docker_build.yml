@@ -14,7 +14,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-     
+   
 
     steps:
       - name: Checkout repository
@@ -40,9 +40,13 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          secrets: ${{secrets.NOSTR_PRIVATE_KEY}}
+          
+        
+        
           
         #   build-args: |
         #     NOSTR_PRIVATE_KEY
-        # env:
+        # secrets:
         #   NOSTR_PRIVATE_KEY: ${{secrets.NOSTR_PRIVATE_KEY}}
           
