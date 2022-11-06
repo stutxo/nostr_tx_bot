@@ -13,7 +13,7 @@ env:
 jobs:
 
   test:
-    name: jobs.tests.name
+    name: jobs.<tests>.name
     runs-on: ubuntu-latest
 
     strategy:
