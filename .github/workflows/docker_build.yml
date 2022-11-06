@@ -40,10 +40,10 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          secrets: ${{secrets.NOSTR_PRIVATE_KEY}}
+        
+        
           
-        
-        
+
           
         #   build-args: |
         #     NOSTR_PRIVATE_KEY
