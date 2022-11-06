@@ -12,11 +12,12 @@ WORKDIR /app
 COPY --from=builder ./app/dist ./dist
 COPY ["package.json", "package-lock.json", "./"],
 
+RUN  npm install --production
 
 ARG NOSTR_PRIVATE_KEY
 ENV NOSTR_PRIVATE_KEY $NOSTR_PRIVATE_KEY
 
-RUN  npm install --production
+ENTRYPOINT npm start
 
 
 
