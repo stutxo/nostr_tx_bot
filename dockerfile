@@ -12,7 +12,7 @@ WORKDIR /app
 COPY --from=builder ./app/dist ./dist
 COPY ["package.json", "package-lock.json", "./"],
 
-RUN  npm install --production 
+RUN  npm install --production
 
-CMD [ "--mount=type=secret,id=NOSTR_PRIVATE_KEY \
-   export NOSTR_PRIVATE_KEY=$(cat /run/secrets/NOSTR_PRIVATE_KEY)" ]
+RUN --mount=type=secret,id=NOSTR_PRIVATE_KEY \
+   export NOSTR_PRIVATE_KEY=$(cat /run/secrets/NOSTR_PRIVATE_KEY)
