@@ -7,4 +7,4 @@ dist
 package-lock.json
 infra/terraform/.terraform
 infra/terraform/.terraform.lock.hcl
-infra/terraform/egg2
+infra/terraform/egg3
