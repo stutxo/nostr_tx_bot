@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - 'infra/**'
       - '.github/**'
+      - ".gitignore"
   pull_request:
     branches: [ "main" ]
     paths-ignore:
