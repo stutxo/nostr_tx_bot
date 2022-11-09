@@ -11,6 +11,7 @@ on:
     paths-ignore:
       - 'infra/**'
       - '.github/**'
+      - ".gitignore"
 
 env:
   REGISTRY: ghcr.io
