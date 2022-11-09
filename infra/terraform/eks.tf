@@ -170,7 +170,7 @@ resource "helm_release" "argocd" {
   version          = "5.13.5"
 
   values = [
-    file("argocd/application.yaml")
+    file("infra/argocd/application.yaml")
   ]
 
   depends_on = [
