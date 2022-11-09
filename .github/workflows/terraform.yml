@@ -1,7 +1,7 @@
 name: "Terraform"
 defaults:
   run:
-    working-directory: infra
+    working-directory: infra/terraform
 on:
   push:
     branches:
