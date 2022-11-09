@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nostr-bot
+  labels:
+    app: nostr-bot
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nostr-bot
+  template:
+    metadata:
+      labels:
+        app: nostr-bot
+    spec:
+      containers:
+      - image: ghcr.io/stum0/nostr_tx_bot:main
+        imagePullPolicy: Always
+        name: nostr-bot
+        ports:
+        - containerPort: 8080
+          protocol: TCP

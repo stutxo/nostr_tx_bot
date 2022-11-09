@@ -1,0 +1,17 @@
+server:
+  additionalApplications:
+    - name: cluster-config
+      namespace: default
+      project: default
+      source:
+        repoURL: https://github.com/stum0/nostr_tx_bot.git
+        targetRevision: HEAD
+        path: infra/argocd/manifests/cluster
+        directory:
+          recurse: true
+      destination:
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
