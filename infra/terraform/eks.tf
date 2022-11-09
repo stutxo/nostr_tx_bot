@@ -8,7 +8,6 @@ module "eks" {
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
 
-
   cluster_addons = {
     kube-proxy = {
       addon_version     = data.aws_eks_addon_version.this["kube-proxy"].version
