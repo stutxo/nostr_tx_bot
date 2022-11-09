@@ -2,7 +2,6 @@ import express from 'express';
 import { start_bot }  from "./bot.js";
 import promclient from "express-prom-bundle";
 
-
 //endpoint for prometheus
 const metrics = promclient({
   includeMethod: true,
