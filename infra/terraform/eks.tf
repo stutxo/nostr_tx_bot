@@ -20,12 +20,6 @@ module "eks" {
   }
 
   fargate_profiles = {
-    nostr = {
-      name = "nostr"
-      selectors = [
-        { namespace = "nostr" }
-      ]
-    }
     kube_system = {
       name = "kube-system"
       selectors = [
