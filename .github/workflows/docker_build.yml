@@ -67,13 +67,38 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-             
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+     - name: Check out code
+       uses: actions/checkout@v3
+
+     - name: Setup Kustomize
+       uses: imranismail/setup-kustomize@v2
+       with:
+        kustomize-version: "3.8.7"
+
+     - name: Update Kubernetes resources
+       env:
+         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+       run: |
+        cd kustomize/base
+        kustomize edit set image nostr-bot=$DOCKER_USERNAME/nostr-bot:$GITHUB_SHA
+        cat kustomization.yaml
+        
+     - name: Commit files
+       run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -am "Bump docker tag"
+
+     - name: Push changes
+       uses: ad-m/github-push-action@master
+       with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}   
+
       
-
-
-          
-        #   build-args: |
-        #     NOSTR_PRIVATE_KEY
-        # secrets:
-        #   NOSTR_PRIVATE_KEY: ${{secrets.NOSTR_PRIVATE_KEY}}
-          
