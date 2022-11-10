@@ -16,11 +16,13 @@ spec:
         app: nostr-bot
     spec:
       containers:
-      - image: ghcr.io/stum0/nostr_tx_bot:main
+      - image: nostr-bot
         imagePullPolicy: Always
         name: nostr-bot
         ports:
         - containerPort: 8080
           protocol: TCP
+      imagePullSecrets:
+      - name: registry-esys
 
    
