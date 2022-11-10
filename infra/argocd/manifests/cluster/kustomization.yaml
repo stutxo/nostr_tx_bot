@@ -1,1 +1,6 @@
-
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: nostr-bot
+  newName: /nostr-bot
+  newTag: 93b96c60c3fa05635e44fd211c95a20e57020a1e
