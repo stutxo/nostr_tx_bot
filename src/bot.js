@@ -63,6 +63,8 @@ export async function start_bot() {
             data: request,
           };
 
+          console.log(command);
+
           axios(config)
             .then(function (response) {
               //Responds with TXID if successful
