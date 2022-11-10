@@ -55,6 +55,8 @@ export async function start_bot() {
       //takes the data that was inputed after the command
       const request = message.substring(message.indexOf(" ") + 1);
 
+      console.log("hi");
+
       switch (command.toLowerCase()) {
         case "!txsend": {
           const config = {
@@ -62,8 +64,6 @@ export async function start_bot() {
             url: "https://mempool.space/api/tx",
             data: request,
           };
-
-          console.log(command);
 
           axios(config)
             .then(function (response) {
