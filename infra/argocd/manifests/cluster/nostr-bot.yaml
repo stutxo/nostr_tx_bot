@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
         - image: nostr-bot
-          imagePullPolicy: Always
           name: nostr-bot
           ports:
             - containerPort: 8080

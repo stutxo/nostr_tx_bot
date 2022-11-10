@@ -65,7 +65,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ github.sha }}, latest
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
