@@ -5,6 +5,7 @@ import axios from "axios";
 //import mempoolJS from "@mempool/mempool.js";
 
 export async function start_bot() {
+  
   const pool = relayPool();
   
   const privatekey = process.env.NOSTR_PRIVATE_KEY;

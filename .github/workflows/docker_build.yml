@@ -86,7 +86,7 @@ jobs:
        env:
          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
        run: |
-        cd kustomize/base
+        cd  infra/argocd/manifests/cluster
         kustomize edit set image nostr-bot=$DOCKER_USERNAME/nostr-bot:$GITHUB_SHA
         cat kustomization.yaml
         
