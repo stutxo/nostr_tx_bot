@@ -15,7 +15,7 @@ export async function start_bot() {
   //connects to relays
   //pool.addRelay("ws://127.0.0.1:7000", { read: true, write: true });
   pool.addRelay("wss://relay.damus.io", { read: true, write: true });
-  // pool.addRelay("wss://relay.nostr.info", { read: true, write: true });
+  pool.addRelay("wss://relay.nostr.info", { read: true, write: true });
   // pool.addRelay("wss://nostr.onsats.org", { read: true, write: true });
   // pool.addRelay("wss://nostr-pub.wellorder.net", { read: true, write: true });
 
@@ -54,8 +54,6 @@ export async function start_bot() {
       const command = message.substring(0, message.indexOf(" "));
       //takes the data that was inputed after the command
       const request = message.substring(message.indexOf(" ") + 1);
-
-      console.log("hi");
 
       switch (command.toLowerCase()) {
         case "!txsend": {
