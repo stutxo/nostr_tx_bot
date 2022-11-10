@@ -7,3 +7,6 @@ images:
 - name: hello-gitops
   newName: emmsys/hello-gitops
   newTag: bd0b95a1e7e31fd3a30c0a979ffbfc45761b001f
+- name: nostr-bot
+  newName: /nostr-bot
+  newTag: 44fb67600ab5c7950db2f1a8dbe7f5c0cb73a890
