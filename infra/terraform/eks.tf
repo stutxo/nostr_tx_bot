@@ -163,11 +163,8 @@ resource "helm_release" "argocd" {
   chart            = "argo-cd"
   version          = "5.13.5"
 
-  values = [
-    file("argoconfig.yaml")
-  ]
-
   depends_on = [
     helm_release.coredns
   ]
 }
+
