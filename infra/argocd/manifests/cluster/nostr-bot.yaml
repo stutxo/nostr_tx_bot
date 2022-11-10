@@ -16,13 +16,9 @@ spec:
         app: nostr-bot
     spec:
       containers:
-      - image: nostr-bot
-        imagePullPolicy: Always
-        name: nostr-bot
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-      imagePullSecrets:
-      - name: registry-esys
-
-   
+        - image: nostr-bot
+          imagePullPolicy: Always
+          name: nostr-bot
+          ports:
+            - containerPort: 8080
+              protocol: TCP
