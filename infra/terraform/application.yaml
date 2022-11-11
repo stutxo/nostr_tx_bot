@@ -4,10 +4,7 @@ metadata:
   name: nostr-bot
   namespace: kube-system
   annotations:
-    argocd-image-updater.argoproj.io/image-list: myalias=docker.io/stum0/nostr-bot        
-    argocd-image-updater.argoproj.io/write-back-method: git:secret:kube-system/git-creds           
-    argocd-image-updater.argoproj.io/git-branch: main                                          
-    argocd-image-updater.argoproj.io/myalias.force-update: "true"      
+    argocd-image-updater.argoproj.io/image-list: docker.io/stum0/nostr-bot     
 spec:
   project: default
   source:
