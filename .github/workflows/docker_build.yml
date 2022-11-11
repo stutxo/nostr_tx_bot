@@ -43,7 +43,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: stum0/nostr-bot
+          images: nostr-bot
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -56,7 +56,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.revision }}
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
@@ -76,9 +76,10 @@ jobs:
       - name: Update Kubernetes resources
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TAG: ${{ steps.meta.outputs.revision }}
         run: |
           cd infra/argocd/application
-          kustomize edit set image nostr-bot=$DOCKER_USERNAME/nostr-bot:${{ steps.meta.outputs.revision }}
+          kustomize edit set image nostr-bot=$DOCKER_USERNAME/nostr-bot:$TAG
           cat kustomization.yaml
 
       - name: Commit files
