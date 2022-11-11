@@ -54,11 +54,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.WORKFLOW_LOGIN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      # - name: Extract metadata (tags, labels) for Docker
+      #   id: meta
+      #   uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      #   with:
+      #     images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
@@ -67,25 +67,23 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-  kustomize:      
-      name: 'Kustomize'
-      runs-on: ubuntu-latest
-      steps:
-        - name: 'Checkout'
-          uses: actions/checkout@master
-        - name: 'Kustomize Build'
-          uses: karancode/kustomize-github-action@master
-          with:
-            kustomize_version: '3.8.7'
-            kustomize_build_dir: 'infra/argocd/application'
-            kustomize_comment: true
-            kustomize_output_file: "infra/argocd/application/rendered.yaml"
-            kustomize_build_options: "--load_restrictor none"
-            enable_alpha_plugins: true
-          env:
-            GITHUB_ACCESS_TOKEN: ${{ secrets.WORKFLOW_LOGIN  }}
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v2
+        with:
+          kustomize-version: "3.8.7"
 
+      - name: Switch out image tag
+        run: |
+          cd  infra/argocd/application
+          kustomize edit set image ${{ env.IMAGE_NAME }}:{tag}
 
+      - name: Commit and push
+        run: |
+         cd ${{ env.REGISTRY }}/
+         git config --local user.email github-actions@github.com
+         git config --local user.name github-actions
+         git commit -am "updates image tag"
+         git push
 
 
 
