@@ -65,7 +65,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}, ${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
@@ -85,7 +85,7 @@ jobs:
       - name: Update Kubernetes resources
         run: |
           cd  infra/argocd/application
-          kustomize edit set image nostr-bot=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          kustomize edit set image nostr-bot=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}${{ github.sha }}
           cat kustomization.yaml
 
       - name: Commit files
