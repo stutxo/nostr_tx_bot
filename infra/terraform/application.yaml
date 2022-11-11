@@ -16,11 +16,9 @@ spec:
     path: infra/argocd/application
   destination: 
     server: https://kubernetes.default.svc
-    namespace: nostr-bot
+    namespace: kube-system
 
   syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true
