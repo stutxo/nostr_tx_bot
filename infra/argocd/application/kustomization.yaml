@@ -4,4 +4,4 @@ resources:
 - nostr-bot.yaml
 images:
 - name: nostr-bot
-  newName: ghcr.io/stum0/nostr_tx_bot
+  newName: ghcr.io/stum0/nostr_tx_bot/b9cd0b4825c15c1941ca3d556b9ea06d6aed10f7
