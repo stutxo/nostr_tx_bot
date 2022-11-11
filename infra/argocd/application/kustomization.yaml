@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
 - deployment.yaml
 images:
-- name: hello-gitops
+- name: nostr-bot
   newName: stum0/nostr-bot
-  newTag: 23eb7f3f8072dbd75a2b26376baafdc229f59482
+  newTag: 53cb7e6c27910717b820921b8e91b89f66399359
