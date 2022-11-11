@@ -2,16 +2,16 @@ name: Create and publish a Docker image
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     paths-ignore:
-      - 'infra/**'
-      - '.github/**'
+      - "infra/**"
+      - ".github/**"
       - ".gitignore"
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
     paths-ignore:
-      - 'infra/**'
-      - '.github/**'
+      - "infra/**"
+      - ".github/**"
       - ".gitignore"
 
 env:
@@ -27,14 +27,14 @@ jobs:
         node-version: [16.x]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-    - run: yarn install
-    - run: yarn test
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+      - run: yarn install
+      - run: yarn test
 
   build-and-push-image:
     needs: test
@@ -67,68 +67,32 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build-and-push-image
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v2
         with:
           kustomize-version: "3.8.7"
 
-      - name: Switch out image tag
+      - name: Update Kubernetes resources
         run: |
           cd  infra/argocd/application
-          kustomize edit set image ${{ env.IMAGE_NAME }}:{tag}
+          kustomize edit set image nostr-bot=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          cat kustomization.yaml
 
-      - name: Commit and push
+      - name: Commit files
         run: |
-         cd ${{ env.REGISTRY }}/
-         git config --local user.email github-actions@github.com
-         git config --local user.name github-actions
-         git commit -am "updates image tag"
-         git push
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Bump docker tag"
 
-
-
-
-
-
-
-
-
-
-
-
-    
-
-  # deploy:
-  #   name: Deploy
-  #   runs-on: ubuntu-latest
-  #   needs: build-and-push-image
-
-  #   steps:
-  #    - name: Check out code
-  #      uses: actions/checkout@v3
-
-  #    - name: Setup Kustomize
-  #      uses: imranismail/setup-kustomize@v2
-  #      with:
-  #       kustomize-version: "3.8.7"
-
-  #    - name: Update Kubernetes resources
-  #      env:
-  #        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  #      run: |
-  #       cd  infra/argocd/manifests/cluster
-  #       kustomize edit set image nostr-bot=$DOCKER_USERNAME/nostr-bot:$GITHUB_SHA
-  #       cat kustomization.yaml
-        
-  #    - name: Commit files
-  #      run: |
-  #       git config --local user.email "action@github.com"
-  #       git config --local user.name "GitHub Action"
-  #       git commit -am "Bump docker tag"
-
-  #    - name: Push changes
-  #      uses: ad-m/github-push-action@master
-  #      with:
-  #       github_token: ${{ secrets.GITHUB_TOKEN }}   
-
-       
+      - name: Push changes
+        uses: ad-m/github-push-action@master
