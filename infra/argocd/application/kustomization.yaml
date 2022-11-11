@@ -5,5 +5,5 @@ resources:
 - deployment.yaml
 images:
 - name: nostr-bot
-  newName: stum0/nostr-bot:stum0/nostr-bot
-  newTag: sha-4e5eb3d
+  newName: stum0/nostr-bot
+  newTag: sha-48ac1f0
