@@ -77,7 +77,7 @@ jobs:
           uses: karancode/kustomize-github-action@master
           with:
             kustomize_version: '3.8.7'
-            kustomize_build_dir: '.'
+            kustomize_build_dir: 'infra/argocd/application'
             kustomize_comment: true
             kustomize_output_file: "infra/argocd/application/rendered.yaml"
             kustomize_build_options: "--load_restrictor none"
