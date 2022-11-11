@@ -70,11 +70,10 @@ jobs:
 
       - name: Update Kubernetes resources
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           TAG: ${{ steps.meta.outputs.tags }}
         run: |
           cd infra/argocd/application
-          kustomize edit set image nostr-bot=$DOCKER_USERNAME/nostr-bot:$TAG
+          kustomize edit set image nostr-bot=$TAG
           cat kustomization.yaml
 
       - name: Commit files
