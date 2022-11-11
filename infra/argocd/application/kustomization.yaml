@@ -2,4 +2,7 @@ namePrefix: kustomize-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- deployment.yaml
+- nostr-bot.yaml
+images:
+- name: nostr-bot
+  newName: ghcr.io/stum0/nostr_tx_bot
