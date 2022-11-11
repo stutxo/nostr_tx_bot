@@ -33,7 +33,6 @@ router.get("/", async (_req, res) => {
   }
 });
 
-
 const app = express();
 const PORT = process.env.PORT || 8080;
 app.listen(PORT);
