@@ -16,7 +16,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}$GITHUB_SHA
 
 jobs:
   test:
@@ -85,7 +85,7 @@ jobs:
       - name: Update Kubernetes resources
         run: |
           cd  infra/argocd/application
-          kustomize edit set image nostr-bot=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}${{ steps.meta.outputs.tags }}
+          kustomize edit set image nostr-bot=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           cat kustomization.yaml
 
       - name: Commit files
