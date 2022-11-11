@@ -1,0 +1,7 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: nostr-bot
+  labels:  
+    name: nostr-bot
+    replicas: 8
