@@ -77,10 +77,12 @@ jobs:
           cat kustomization.yaml
 
       - name: Commit files
+        env:
+          TAG: ${{ steps.meta.outputs.tags }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -am "Bump docker tag"
+          git commit -am $TAG
 
       - name: Push changes
         uses: ad-m/github-push-action@master
