@@ -6,4 +6,4 @@ resources:
 images:
 - name: nostr-bot
   newName: stum0/nostr-bot
-  newTag: 53cb7e6c27910717b820921b8e91b89f66399359
+  newTag: 02aec49225444990ade6cf94040d549e1c59102f
