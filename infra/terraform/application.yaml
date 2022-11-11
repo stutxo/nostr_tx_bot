@@ -16,7 +16,7 @@ spec:
     path: infra/argocd/application
   destination: 
     server: https://kubernetes.default.svc
-    namespace: myapp
+    namespace: nostr-bot
 
   syncPolicy:
     syncOptions:
