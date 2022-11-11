@@ -16,8 +16,20 @@ spec:
         app: nostr-bot
     spec:
       containers:
-        - image: nostr-bot
+        - image: docker.io/stum0/nostr-bot:1
           name: nostr-bot
           ports:
             - containerPort: 8080
               protocol: TCP
+
+
+
+
+
+
+
+
+
+
+
+

@@ -16,7 +16,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/${{ github.sha }}
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   test:
@@ -39,60 +39,24 @@ jobs:
   build-and-push-image:
     needs: test
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
     steps:
-      - name: Checkout repository
+      -
+        name: Checkout
         uses: actions/checkout@v3
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.WORKFLOW_LOGIN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
         with:
           context: .
+          file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: build-and-push-image
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Setup Kustomize
-        uses: imranismail/setup-kustomize@v2
-        with:
-          kustomize-version: "3.8.7"
-
-      - name: Update Kubernetes resources
-        run: |
-          cd  infra/argocd/application
-          kustomize edit set image nostr-bot=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          cat kustomization.yaml
-
-      - name: Commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -am "Bump docker tag"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/clockbox:latest

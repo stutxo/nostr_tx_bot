@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha
+kind: Application
+metadata:
+  name: myapp-argo-application
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: myalias=docker.io/stum0/nostr-bot        
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:kube-system/git-creds           
+    argocd-image-updater.argoproj.io/git-branch: main                                          
+    argocd-image-updater.argoproj.io/myalias.force-update: "true"      
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/stum0/nostr_tx_bot.git
+    targetRevision: HEAD
+    path: infra/argocd/application
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: myapp
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
