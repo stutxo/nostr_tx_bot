@@ -163,13 +163,21 @@ resource "helm_release" "argocd" {
   chart            = "argo-cd"
   version          = "5.13.5"
 
-
-  values = [
-    file("application.yaml")
-  ]
-
-  depends_on = [
+   depends_on = [
     helm_release.coredns
   ]
 }
 
+resource "helm_release" "sealed-secrets" {
+  name             = "sealedsecrets"
+  namespace        = "kube-system"
+  create_namespace = false
+  repository       = "https://bitnami-labs.github.io/sealed-secrets"
+  chart            = "sealed-secrets"
+  version          = "2.7.0"
+
+
+  depends_on = [
+    helm_release.argocd
+  ]
+}

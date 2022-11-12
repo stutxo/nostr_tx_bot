@@ -4,7 +4,7 @@ metadata:
   name: nostr-bot
   labels:
     app: nostr-bot
-  namespace: kube-system
+  namespace: nostr
 spec:
   replicas: 1
   selector:
@@ -19,17 +19,12 @@ spec:
         - image: nostr-bot
           name: nostr-bot
           ports:
-            - containerPort: 8080
+            - containerPort: 3000
               protocol: TCP
-
-
-
-
-
-
-
-
-
-
-
-
+          env:
+            - name: NOSTR_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: NOSTR_PRIVATE_KEY
+                  key: nostr-key
+                  optional: false

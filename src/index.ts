@@ -34,7 +34,7 @@ router.get("/", async (_req, res) => {
 });
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT);
 console.log("api server started on port: " + PORT);
 app.use("/health", router);
