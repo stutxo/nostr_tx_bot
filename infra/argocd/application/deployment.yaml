@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: pod
 metadata:
   name: nostr-bot
   labels:
