@@ -4,7 +4,7 @@ metadata:
   name: nostr-bot
   labels:
     app: nostr-bot
-  namespace: nostr
+  namespace: kube-system
 spec:
   replicas: 1
   selector:
