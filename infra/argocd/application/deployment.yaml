@@ -26,5 +26,5 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nostr-key
-                  key: private-key
+                  key: key
                   optional: false
