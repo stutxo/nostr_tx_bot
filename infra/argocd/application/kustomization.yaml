@@ -3,13 +3,13 @@ kind: Kustomization
 namespace: kube-system
 resources:
 - deployment.yaml
-- key-secret.yaml
+- sealed-secrets/key-secret.yaml
 images:
 - name: nostr-bot
   newName: stum0/nostr-bot
   newTag: sha-a5e31d0
 configurations:
-  - secret-config.yaml
+  - configuration/secret-config.yaml
 
 secretGenerator:
   - name: nostr-key
