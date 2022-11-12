@@ -25,6 +25,6 @@ spec:
             - name: NOSTR_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
-                  name: NOSTR_PRIVATE_KEY
-                  key: nostr-key
+                  name: nostr-key
+                  key: private-key
                   optional: false
