@@ -16,15 +16,12 @@ spec:
         app: nostr-bot
     spec:
       containers:
+      - envFrom:
+        - secretRef:
+            name: nostr-key
         - image: nostr-bot
           name: nostr-bot
           ports:
             - containerPort: 3000
               protocol: TCP
-          env:
-            - name: NOSTR_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: nostr-key
-                  key: key
-                  optional: false
+    
