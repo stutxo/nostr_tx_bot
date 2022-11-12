@@ -7,8 +7,8 @@ import axios from "axios";
 export async function start_bot() {
   const pool = relayPool();
   
-  const privatekeytest = process.env.NOSTR_PRIVATE_KEY;
-  const privatekey = "a2de924a9e5a7d6cfade35ee5954de7a2bcbc82adc3e0c22e35576b913d21ac1"
+  const privatekey = process.env.NOSTR_PRIVATE_KEY;
+
   
   console.log(process.env.NOSTR_PRIVATE_KEY)
 
