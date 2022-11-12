@@ -21,11 +21,24 @@ spec:
           ports:
             - containerPort: 3000
               protocol: TCP
-          env:  
-            - name: NOSTR_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: nostr-key
-                  key: key
+          volumeMounts:
+          - name: nostr-key
+            mountPath: "/secrets/nostr-key"
+            readOnly: true   
+      volumes:
+      - name: nostr-key
+        secret:
+          secretName: nostr-key
+         
+         
+         
+         
+         
+          # env:  
+          #   - name: NOSTR_PRIVATE_KEY
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: nostr-key
+          #         key: key
             
     
