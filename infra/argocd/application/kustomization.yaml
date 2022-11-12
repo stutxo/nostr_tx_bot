@@ -1,9 +1,17 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: kube-system
 resources:
 - deployment.yaml
+- key-secret.yaml
 images:
 - name: nostr-bot
   newName: stum0/nostr-bot
   newTag: sha-a5e31d0
+configurations:
+  - secret-config.yaml
+
+secretGenerator:
+  - name: nostr-key
+    type: Opaque 
 
