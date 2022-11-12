@@ -5,4 +5,4 @@ resources:
 images:
 - name: nostr-bot
   newName: stum0/nostr-bot
-  newTag: sha-9263e53
+  newTag: sha-a5e31d0
