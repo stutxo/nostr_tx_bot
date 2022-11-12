@@ -7,11 +7,4 @@ resources:
 images:
 - name: nostr-bot
   newName: stum0/nostr-bot
-  newTag: sha-a5e31d0
-# configurations:
-#   - configuration/secret-config.yaml
-
-# secretGenerator:
-#   - name: nostr-key
-#     type: Opaque 
-
+  newTag: sha-06676ab
