@@ -23,9 +23,10 @@ spec:
               protocol: TCP
           env:  
             - name: NOSTR_PRIVATE_KEY
-              secretKeyRef:
+              valueFrom:
+                secretKeyRef:
                   name: nostr-key
-                  key: key
+                  key: data.key
          
          
          
