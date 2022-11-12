@@ -21,6 +21,10 @@ spec:
           ports:
             - containerPort: 3000
               protocol: TCP
-        - envFrom: 
-          - secretRef:
-                name: nostr-key
+          env:
+            - name: NOSTR_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: nostr-key
+                  key: private-key
+                  optional: false
