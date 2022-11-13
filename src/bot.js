@@ -2,11 +2,10 @@ import { relayPool } from "nostr-tools";
 import { getPublicKey } from "nostr-tools";
 import { decrypt, encrypt } from "nostr-tools/nip04.js";
 import axios from "axios";
-//import mempoolJS from "@mempool/mempool.js";
 
 export async function start_bot() {
   const pool = relayPool();
-  
+
   const privatekey = process.env.NOSTR_PRIVATE_KEY;
 
   pool.setPrivateKey(privatekey);
@@ -15,7 +14,7 @@ export async function start_bot() {
   //connects to relays
   //pool.addRelay("ws://127.0.0.1:7000", { read: true, write: true });
   pool.addRelay("wss://relay.damus.io", { read: true, write: true });
-  
+
   //pool.addRelay("wss://relay.nostr.info", { read: true, write: true });
   // pool.addRelay("wss://nostr.onsats.org", { read: true, write: true });
   // pool.addRelay("wss://nostr-pub.wellorder.net", { read: true, write: true });
@@ -98,19 +97,37 @@ export async function start_bot() {
 
           break;
         }
-        // case "!txinfo": {
-        //   const {
-        //     bitcoin: { transactions },
-        //   } = mempoolJS({
-        //     hostname: "mempool.space",
-        //   });
+        case "!blocks": {
+          const config = {
+            method: "get",
+            url: "https://mempool.space/api/v1/blocks/",
+            data: data,
+          };
 
-        //   const txid = request;
-        //   const txStatus = transactions.getTxStatus({ txid });
-        //   console.log(txStatus);
+          axios(config)
+            .then(function (response) {
+              console.log(JSON.stringify(response.data));
+              pool.publish({
+                pubkey: mykey,
+                created_at: Math.round(Date.now() / 1000),
+                kind: 4,
+                tags: [["p", pubkey]],
+                content: encrypt(privatekey, pubkey, response.data),
+              });
+            })
+            .catch(function (error) {
+              console.log(error);
+              pool.publish({
+                pubkey: mykey,
+                created_at: Math.round(Date.now() / 1000),
+                kind: 4,
+                tags: [["p", pubkey]],
+                content: encrypt(privatekey, pubkey, error.response.data),
+              });
+            });
 
-        //   break;
-        // }
+          break;
+        }
         default: {
           const command_reply =
             "!txsend: Broadcast txhex\n!txinfo: retrieve info for txid\n!help: how to use";
