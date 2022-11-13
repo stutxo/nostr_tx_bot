@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nostr-bot-TEST
+  name: nostr-bot-test
   namespace: argo-cd
 spec:
   project: default
