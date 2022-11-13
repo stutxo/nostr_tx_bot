@@ -4,7 +4,6 @@ namespace: argo-cd
 resources:
 - deployment.yaml
 - secret-test.yaml
-- cluster-secret-store.yaml
 images:
 - name: nostr-bot
   newName: stum0/nostr-bot
