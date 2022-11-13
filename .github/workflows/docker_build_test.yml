@@ -43,7 +43,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ secrets.DOCKER_HUB_USERNAME }}/nostr-bot-TEST
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/nostr-bot-test
           tags: type=sha
 
       - name: Login to Docker Hub
@@ -73,7 +73,7 @@ jobs:
           TAG: ${{ steps.meta.outputs.tags }}
         run: |
           cd infra/argocd/test
-          kustomize edit set image nostr-bot-TEST=$TAG
+          kustomize edit set image nostr-bot-test=$TAG
           cat kustomization.yaml
 
       - name: Commit files
