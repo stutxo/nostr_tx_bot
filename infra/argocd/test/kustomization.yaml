@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: argo-cd
+resources:
+- deployment.yaml
+- secret-test.yaml
+images:
+- name: nostr-bot-TEST
+  newName: stum0/nostr-bot-TEST
+  newTag: sha-7e4c5af

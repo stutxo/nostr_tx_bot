@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nostr-bot-TEST
+  labels:
+    app: nostr-bot-TEST
+  namespace: argo-cd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nostr-bot-TEST
+  template:
+    metadata:
+      labels:
+        app: nostr-bot-TEST
+    spec:
+      containers:
+        - image: nostr-bot-TEST
+          name: nostr-bot-TEST
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:  
+            - name: NOSTR_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: nostr-secret-test
+                  key: token
+         
+         
+         
+         
+          
+            
+    
