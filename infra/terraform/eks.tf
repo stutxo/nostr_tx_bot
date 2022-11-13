@@ -188,6 +188,11 @@ resource "helm_release" "external-secrets" {
   chart            = "external-secrets"
   version          = "0.6.1"
 
+   set {
+    name  = "installCRDs"
+    value = "true"
+  }
+
   depends_on = [
     helm_release.argocd
   ]
@@ -209,6 +214,6 @@ resource "null_resource" "deploy_argocd_apps" {
   } 
 
   depends_on = [
-    helm_release.argocd
+    helm_release.external-secrets
   ]
 }
