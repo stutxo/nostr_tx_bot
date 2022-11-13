@@ -26,6 +26,18 @@ module "eks" {
         { namespace = "kube-system" }
       ]
     }
+    argo-cd = {
+      name = "argo-cd"
+      selectors = [
+        { namespace = "argo-cd" }
+      ]
+    }
+    external-secrets = {
+      name = "external-secrets"
+      selectors = [
+        { namespace = "external-secrets" }
+      ]
+    }
   }
   tags = local.tags
 }
@@ -157,25 +169,32 @@ resource "helm_release" "coredns" {
 
 resource "helm_release" "argocd" {
   name             = "argocd"
-  namespace        = "kube-system"
-  create_namespace = false
+  namespace        = "argo-cd"
+  create_namespace = true
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-cd"
   version          = "5.13.5"
 
-   depends_on = [
+  depends_on = [
     helm_release.coredns
   ]
 }
 
-resource "helm_release" "sealed-secrets" {
-  name             = "sealedsecrets"
-  namespace        = "kube-system"
-  create_namespace = false
-  repository       = "https://bitnami-labs.github.io/sealed-secrets"
-  chart            = "sealed-secrets"
-  version          = "2.7.0"
+resource "null_resource" "deploy_argocd_apps" {
+  triggers = {}
 
+  provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      KUBECONFIG = base64encode(local.kubeconfig)
+    }
+
+    # We are maintaing the existing kube-dns service and annotating it for Helm to assume control
+    command = <<-EOT
+      kubectl apply -f external-secrets.yaml --kubeconfig <(echo $KUBECONFIG | base64 --decode)
+      kubectl apply -f nostr-bot.yaml --kubeconfig <(echo $KUBECONFIG | base64 --decode)
+    EOT
+  } 
 
   depends_on = [
     helm_release.argocd

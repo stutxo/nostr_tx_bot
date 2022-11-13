@@ -4,7 +4,7 @@ metadata:
   name: nostr-bot
   labels:
     app: nostr-bot
-  namespace: kube-system
+  namespace: argo-cd
 spec:
   replicas: 1
   selector:
