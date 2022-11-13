@@ -7,8 +7,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/stum0/nostr_tx_bot.git
-    targetRevision: HEAD
-    path: infra-fev/argo-dev
+    targetRevision: test
+    path: infra-dev/argo-dev
   destination: 
     server: https://kubernetes.default.svc
     namespace: test
