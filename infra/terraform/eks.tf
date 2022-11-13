@@ -223,3 +223,4 @@ resource "null_resource" "deploy_argocd_apps" {
     helm_release.external-secrets
   ]
 }
+
