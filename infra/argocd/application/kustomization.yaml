@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: kube-system
 resources:
 - deployment.yaml
+- secret-test.yaml
 images:
 - name: nostr-bot
   newName: stum0/nostr-bot
