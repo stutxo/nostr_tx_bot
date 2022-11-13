@@ -180,6 +180,19 @@ resource "helm_release" "argocd" {
   ]
 }
 
+resource "helm_release" "external-secrets" {
+  name             = "external-secrets"
+  namespace        = "external-secrets"
+  create_namespace = true
+  repository       = "https://charts.external-secrets.io"
+  chart            = "external-secrets"
+  version          = "0.6.1"
+
+  depends_on = [
+    helm_release.argocd
+  ]
+}
+
 resource "null_resource" "deploy_argocd_apps" {
   triggers = {}
 
@@ -191,7 +204,6 @@ resource "null_resource" "deploy_argocd_apps" {
 
     # We are maintaing the existing kube-dns service and annotating it for Helm to assume control
     command = <<-EOT
-      kubectl apply -f external-secrets.yaml --kubeconfig <(echo $KUBECONFIG | base64 --decode)
       kubectl apply -f nostr-bot.yaml --kubeconfig <(echo $KUBECONFIG | base64 --decode)
     EOT
   } 
