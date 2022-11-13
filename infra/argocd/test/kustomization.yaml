@@ -5,7 +5,7 @@ resources:
 - deployment.yaml
 - secret-test.yaml
 images:
-- name: nostr-bot-TEST
+- name: nostr-bot-test
   newName: stum0/nostr-bot-test
   newTag: sha-c3dba25
 
