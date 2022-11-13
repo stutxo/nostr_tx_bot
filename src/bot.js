@@ -98,10 +98,28 @@ export async function start_bot() {
           break;
         }
         case "!blocks": {
+          
+
+          break;
+        }
+        default: {
+          const command_reply =
+            "!txsend: Broadcast txhex\n!dif: difficulty adjustment details";
+
+          message.includes("!commands")
+            ? pool.publish({
+                pubkey: mykey,
+                created_at: Math.round(Date.now() / 1000),
+                kind: 4,
+                tags: [["p", pubkey]],
+                content: encrypt(privatekey, pubkey, command_reply),
+              })
+            : {};
+
+          message.includes("!dif")
           const config = {
             method: "get",
-            url: "https://mempool.space/api/v1/blocks/",
-            data: data,
+            url: "https://mempool.space/api/v1/difficulty-adjustment",
           };
 
           axios(config)
@@ -112,7 +130,7 @@ export async function start_bot() {
                 created_at: Math.round(Date.now() / 1000),
                 kind: 4,
                 tags: [["p", pubkey]],
-                content: encrypt(privatekey, pubkey, response.data),
+                content: encrypt(privatekey, pubkey, JSON.stringify(response.data)),
               });
             })
             .catch(function (error) {
@@ -125,22 +143,6 @@ export async function start_bot() {
                 content: encrypt(privatekey, pubkey, error.response.data),
               });
             });
-
-          break;
-        }
-        default: {
-          const command_reply =
-            "!txsend: Broadcast txhex\n!txinfo: retrieve info for txid\n!help: how to use";
-
-          message.includes("!commands")
-            ? pool.publish({
-                pubkey: mykey,
-                created_at: Math.round(Date.now() / 1000),
-                kind: 4,
-                tags: [["p", pubkey]],
-                content: encrypt(privatekey, pubkey, command_reply),
-              })
-            : {};
           break;
         }
       }
