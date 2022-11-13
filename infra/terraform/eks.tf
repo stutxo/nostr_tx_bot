@@ -188,9 +188,14 @@ resource "helm_release" "external-secrets" {
   chart            = "external-secrets"
   version          = "0.6.1"
 
-   set {
+  set {
     name  = "installCRDs"
     value = "true"
+  }
+
+  set {
+    name  = "webhook.port"
+    value = "9443"
   }
 
   depends_on = [
@@ -211,7 +216,7 @@ resource "null_resource" "deploy_argocd_apps" {
     command = <<-EOT
       kubectl apply -f nostr-bot.yaml --kubeconfig <(echo $KUBECONFIG | base64 --decode)
     EOT
-  } 
+  }
 
   depends_on = [
     helm_release.external-secrets
