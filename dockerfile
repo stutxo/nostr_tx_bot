@@ -13,8 +13,3 @@ COPY ["package.json", "yarn.lock", "./"],
 RUN  yarn install --production 
 
 ENTRYPOINT yarn start
-
-#take private key from github secrets via github workflow ARG and pass it to local ENV
-# ARG NOSTR_PRIVATE_KEY
-# ENV NOSTR_PRIVATE_KEY $NOSTR_PRIVATE_KEY
-

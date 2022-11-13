@@ -72,7 +72,7 @@ jobs:
         env:
           TAG: ${{ steps.meta.outputs.tags }}
         run: |
-          cd infra/argocd/test
+          cd infra-dev/argo-dev
           kustomize edit set image nostr-bot-test=$TAG
           cat kustomization.yaml
 
