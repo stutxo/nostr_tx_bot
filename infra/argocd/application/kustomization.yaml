@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: argo-cd
 resources:
 - deployment.yaml
-- secret-test.yaml
+- secret.yaml
 images:
 - name: nostr-bot
   newName: stum0/nostr-bot
