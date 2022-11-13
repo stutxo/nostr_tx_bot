@@ -85,6 +85,7 @@ jobs:
           git commit -am $TAG
 
       - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@child
         with:
           github_token: ${{ secrets.WORKFLOW_LOGIN }}
+          branch: ${{ github.ref }}
