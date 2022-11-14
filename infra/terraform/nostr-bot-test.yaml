@@ -11,7 +11,7 @@ spec:
     path: infra-dev/argo-dev
   destination: 
     server: https://kubernetes.default.svc
-    namespace: test
+    namespace: argo-cd
   syncPolicy:
     automated:
       selfHeal: true
