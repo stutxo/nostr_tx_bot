@@ -216,6 +216,7 @@ resource "null_resource" "deploy_argocd_apps" {
     command = <<-EOT
       kubectl apply -f nostr-bot.yaml --kubeconfig <(echo $KUBECONFIG | base64 --decode)
       kubectl apply -f nostr-bot-test.yaml --kubeconfig <(echo $KUBECONFIG | base64 --decode)
+
     EOT
   }
 
