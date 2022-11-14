@@ -25,7 +25,7 @@ spec:
             - name: NOSTR_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
-                  name: nostr-secret-test
+                  name: nostr-secret
                   key: token
          
          
