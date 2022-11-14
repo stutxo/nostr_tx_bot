@@ -7,12 +7,14 @@ on:
       - "infra/**"
       - ".github/**"
       - ".gitignore"
+      - "infra-dev/**"
   pull_request:
     branches: ["test"]
     paths-ignore:
       - "infra/**"
       - ".github/**"
       - ".gitignore"
+      - "infra-dev/**"
 
 jobs:
   test:
