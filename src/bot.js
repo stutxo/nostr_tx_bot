@@ -15,7 +15,8 @@ export async function start_bot() {
   //pool.addRelay("ws://127.0.0.1:7000", { read: true, write: true });
   pool.addRelay("wss://relay.damus.io", { read: true, write: true });
 
-  //pool.addRelay("wss://relay.nostr.info", { read: true, write: true });
+  pool.addRelay("wss://relay.nostr.info", { read: true, write: true });
+  
   // pool.addRelay("wss://nostr.onsats.org", { read: true, write: true });
   // pool.addRelay("wss://nostr-pub.wellorder.net", { read: true, write: true });
 
